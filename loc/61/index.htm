@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Ute Mountain Ute</title>
+<script type="module" src="https://js.arcgis.com/calcite-components/2.13.0/calcite.esm.js"></script>
+<link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.13.0/calcite.css" />
+
+
+    <style>
+    
+    html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0;
+}
+body {
+display: flex;
+}
+    
+      #viewDiv {
+        padding: 0;
+        margin-top: 65px;
+        height: 100%;
+        width: 100%;
+       
+        position:absolute;
+      }
+        #nioapp {
+            position:absolute;
+        padding: 0;
+        margin-top: 60px;
+        height: 1000px;
+        width: 100%;
+     
+        
+      }
+
+      .docking-control {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 50%;
+        width: 250px;
+        height: 80px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: -40px 0 0 -125px;
+        background-color: #fff;
+        color: #323232;
+        text-align: center;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .docking-control label {
+        display: inline-block;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        padding: 0;
+        font-size: 16px;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.30/"></script>
+
+   <script>
+    require([
+      "esri/config",
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Legend",
+      "esri/widgets/LayerList",
+      "esri/widgets/Expand",
+      "esri/widgets/Print",
+      "esri/widgets/BasemapGallery"
+    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend, LayerList, Expand, Print, BasemapGallery) {
+
+      esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurFWMerMBSrG66XkoLjUPuaPmwn0rWUuOUsqHXKZBiSPZ8_bL4YskA2RzPKtl3FmqT4kfxgd6m6z4GRD2iYU892mXS82uzNNRwXlkLuD3qje5M_pAP0hTFhWumrG8_mvXqCU73e3UXEUQ-AYjpqEE4I883RF9Uhh6pdyiY8OqHi5tE1CRu8BmfvAHzEm-6i5qSQ..AT1_X7beuIfj";
+
+      const webmap = new WebMap({
+        portalItem: {
+          id: "b9529622389a4531a295b558976a96b0"
+        }
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: webmap
+
+      });
+
+    
+
+  
+      
+        view.when(() => {
+                const layerList = new LayerList({
+                    view: view
+                });
+                
+                const layerexpand = new Expand({
+                    view: view,
+                    content: layerList,
+                     group: "top-left"
+                });
+
+                // Add widget to the top right corner of the view
+               view.ui.add([layerexpand], "top-left");
+            });
+            
+            
+               view.when(() => {
+                const basemapgallery = new BasemapGallery({
+                    view: view
+                });
+                
+                const basemapexpand = new Expand({
+                    view: view,
+                    content: basemapgallery,
+                     group: "top-left"
+                });
+
+                // Add widget to the top right corner of the view
+               view.ui.add([basemapexpand], "top-left");
+            });
+
+            
+            
+             view.when(() => {
+          const print = new Print({
+            view: view,
+            // specify your own print service
+            printServiceUrl:
+              "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+          });
+
+
+ const printexpand = new Expand({
+                    view: view,
+                    content: print,
+                     group: "top-left"
+                });
+          // Add widget to the top right corner of the view
+          view.ui.add([printexpand], "top-left");
+        });
+
+
+  });
+  </script>
+  </head>
+
+ <body>
+ <calcite-shell>
+    <calcite-navigation slot="header" navigation-action id="bird-observation-nav" >
+    
+      <calcite-menu slot="content-end" label="Environments">
+        <calcite-menu-item text="Ute Mountain Ute" text-enabled></calcite-menu-item>
+       
+      </calcite-menu>
+    </calcite-navigation>
+  
+  </calcite-shell>
+
+  <!-- Sheet contents -->
+  <calcite-sheet label="Bird Species in Palm Springs" display-mode="float" id="bird-species" >
+  
+    <calcite-shell>
+       
+          
+                <calcite-menu layout="vertical" label="Transportation Methods"  style="background-color: coral;">
+                        <calcite-menu-item icon-start="applications" text="NIOGEMS"></calcite-menu-item>
+                    <calcite-menu-item icon-start="map" text="Maps">
+                         <calcite-menu-item icon-start="trucking-time" slot="submenu-item" text="Everything"></calcite-menu-item>
+                         <calcite-menu-item icon-start="trucking-time" slot="submenu-item" text="Surface"></calcite-menu-item>
+                     <calcite-menu-item icon-start="trucking-time" slot="submenu-item" text="Oil & Gas"></calcite-menu-item>
+                      <calcite-menu-item icon-start="trucking-time" slot="submenu-item" text="Coal"></calcite-menu-item>
+                       <calcite-menu-item icon-start="trucking-time" slot="submenu-item" text="Other Minerals"></calcite-menu-item>
+                       
+                     </calcite-menu-item>
+                     <calcite-menu-item icon-start="graph-bar" text="Charts"></calcite-menu-item>
+                 
+                       <calcite-menu-item icon-start="file-text" text="Files"></calcite-menu-item>
+                         <calcite-menu-item icon-start="data" text="Data"></calcite-menu-item>
+                           <calcite-menu-item icon-start="question" text="Help"></calcite-menu-item>
+                   
+                </calcite-menu>
+          
+      
+       
+    </calcite-shell>
+    
+       
+      
+    
+
+  </calcite-sheet>
+   <!-- <div id="nioapp" onclick="this.contentWindow.focus()" > <iframe onclick="this.contentWindow.focus()" src="https://login.niogems.com/guacamole/#/client/MTkAYwBteXNxbA?username=upre3mfia9u&password=towaoc81334" style="width:100%; height:800px;"></iframe></div> 
+ --> <div id="viewDiv" class="esri-widget" > </div> 
+ 
+   <div id="help" > </div> 
+ <div id="documentation"> </div> 
+
+
+
+     <script>
+    const panel = document.querySelector("#panel");
+const infoButton = document.querySelector("#info-button");
+
+infoButton.addEventListener("click", () => {
+  infoButton.active = !infoButton.active;
+  panel.collapsed = !panel.collapsed;
+});
+
+
+function show_webmap() {
+  var divelement = document.getElementById('viewDiv');
+    divelement.style.display = 'inherit';
+    var divapp = document.getElementById('nioapp');
+    divapp.style.display = 'none'; 
+    
+};
+
+
+function show_application() {
+ 
+   
+   //  var divelement = document.getElementById('viewDiv');
+//    divelement.style.display = 'none';
+ //     var divapp = document.getElementById('nioapp');
+  //  divapp.style.display = 'inline'; 
+//    window.focus();
+    
+};
+
+</script>
+<script>
+const navigationEl = document.getElementById("bird-observation-nav");
+const birdSpeciesSheet = document.getElementById("bird-species");
+const chipGroupEl = document.querySelector("calcite-chip-group");
+const birdName = document.getElementById("bird-name");
+
+navigationEl?.addEventListener("calciteNavigationActionSelect", function () {
+  birdSpeciesSheet.open = true;
+});
+
+chipGroupEl.addEventListener("calciteChipGroupSelect", (evt) => {
+  birdName.innerText = evt.target.selectedItems[0].label;
+});
+</script>
+  </body>
+
+    
+</html>
